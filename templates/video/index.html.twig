@@ -1,0 +1,35 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello VideoController!{% endblock %}
+
+{% block body %}
+    <h3>Create a new video</h3>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    <h1>All videos</h1>
+    <ul>
+        {% for video in videos %}
+            <li>Title: {{ video.title }}</li>
+            <li>Date: {{ video.createdAt|date }}</li>
+            <li>Url: {{ video.url }}</li>
+            <li>Description: {{ video.description }}</li>
+            {% if video.category %}
+                <li>Category: {{ video.category.title }}</li>
+            {% else %}
+                <li>Category: None</li>
+            {% endif %}
+            <li>User: {{ video.user.email }}</li>
+            {% if video.published == true %}
+                <li>Published: <input type="checkbox" checked></li>
+            {% else %}
+                <li>Published: <input type="checkbox"></li>
+            {% endif %}
+            <a href="{{ path('video_edit', {'id': video.id}) }}">Edit</a>
+            <a href="{{ path('video_remove', {'id': video.id}) }}">Delete</a>
+            <br><br>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,16 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    {% for video in videos %}
+        {% if (is_granted('IS_AUTHENTICATED_FULLY') and video.user.id == userLogged.id) or is_granted('ROLE_ADMIN') %}
+            {{ form_start(form) }}
+            {{ form_widget (form) }}
+            {{ form_end(form) }}
+        {% else %}
+            <p>You're not allowed to be here</p>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for user in users %}
+        {% if (is_granted('IS_AUTHENTICATED_FULLY') and user.id == userLogged.id) or is_granted('ROLE_ADMIN') %}
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        {% else %}
+            <li>Email: {{ user.email }}</li>
+            <li>Lastname: {{ user.lastname }}</li>
+            <li>Firstname: {{ user.firstname }}</li>
+            <li>Birthday: {{ user.birthday|date }}</li>
+            {% if user.newsletter == 1 %}
+                <li>Newsletter: <input type="checkbox" checked></li>
+            {% else %}
+                <li><input type="checkbox"></li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

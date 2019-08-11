@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>All video details</h2>
+    {% for video in videos %}
+        <p>Title: {{ video.title }}</p>
+        <p>Date: {{ video.createdAt|date }}</p>
+        <p>Url: {{ video.url }}</p>
+        {% if video.description is defined %}
+            <p>Description: {{ video.description }}</p>
+        {% endif %}
+        {% if video.category is defined %}
+            <p>Category: {{ video.category.title }}</p>
+        {% endif %}
+        {% if video.user is defined %}
+            <p>Edited By: {{ video.user.email }}</p>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

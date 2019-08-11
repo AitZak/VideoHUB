@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+    {% for category in categories %}
+        <h2><a href=" {{ path('category_videos',{'title': category.title}) }}">{{ category.title }}</a></h2>
+        {% for videos in category.videos %}
+            <p>Title :{{ videos.title }}</p>
+            <p>Url :{{ videos.url }}</p>
+            <p>User :{{ videos.user.email }}</p>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}

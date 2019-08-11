@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>All published video</h2>
+    {% for video in videos %}
+        {% if video.published == true %}
+            <p>Title: {{ video.title }}</p>
+            <p>Date: {{ video.createdAt|date }}</p>
+            <p>Url: {{ video.url }}</p>
+            {% if video.description is defined %}
+                <p>Description: {{ video.description }}</p>
+            {% endif %}
+            {% if video.category %}
+                <p>Category: {{ video.category.title }}</p>
+            {% else %}
+                <p>Category: None</p>
+            {% endif %}
+            {% if video.user is defined %}
+                <p><a href="{{ path('video_edit', {'id': video.id}) }}">Edit</a></p>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    <h2>All not published video</h2>
+    {% for video in videos %}
+        {% if video.published == false %}
+            <p>Title: {{ video.title }}</p>
+            <p>Date: {{ video.createdAt|date }}</p>
+            <p>Url: {{ video.url }}</p>
+            {% if video.description is defined %}
+                <p>Description: {{ video.description }}</p>
+            {% endif %}
+            {% if video.category %}
+                <p>Category: {{ video.category.title }}</p>
+            {% else %}
+                <p>Category: None</p>
+            {% endif %}
+            {% if video.user is defined %}
+                <p><a href="{{ path('video_edit', {'id': video.id}) }}">Edit</a></p>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

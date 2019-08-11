@@ -1,0 +1,18 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+    <h1>All Categories</h1>
+    <a href="{{ path('category_create') }}">Create a new Category</a>
+    <ul>
+        {% for category in categories %}
+            <li style="font-weight: bold"><a href="{{ path('category_videos',{'title': category.title}) }}">Title :</a> {{ category.title }}</li>
+            <li style="font-weight: bold">Description : {{ category.description }}</li>
+            <a href="{{ path('category_edit', {'id': category.id}) }}">Edit</a>
+            <a href="{{ path('category_remove', {'id': category.id}) }}">Delete</a>
+            <br><br>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+    <a href="{{ path('home') }}">>Acceuil</a>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <p>Welcome {{ app.user.lastname }} {{ app.user.firstname }}</p>
+        <a href="{{ path('logout') }}">>Se deconnecter</a>
+        <a href="{{ path('video_create') }}">Create a Video</a>
+        <a href="{{ path('user_video', {'id':app.user.id}) }}">My videos</a>
+        <a href="{{ path('profile', {'id':app.user.id}) }}">My profile</a>
+    {% else %}
+        <p>Welcome Anonymous</p>
+        <a href="{{ path('login') }}">Se Connecter</a>/<a href="{{ path('register') }}">S'inscrire</a>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('categories') }}">Catégories</a>
+        <a href="{{ path('users') }}">All Users</a>
+        <a href="{{ path('videos') }}">All Videos</a>
+    {% endif %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
+    </body>
+</html>
